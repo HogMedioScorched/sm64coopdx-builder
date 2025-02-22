@@ -13,5 +13,5 @@ Copy and paste the below command in termux and press enter. Thats all!
 
 
 ```
-bash <(curl -Ls https://github.com/izzy2lost/sm64coopdx-builder/raw/main/sm64coopdx.sh)
+bash <(curl -Ls https://github.com/hogmedioscorched/sm64coopdx-builder/raw/main/mode_select.sh)
 ```
