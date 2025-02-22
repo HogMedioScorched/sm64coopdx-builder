@@ -12,6 +12,7 @@ ____ ____ ____ ___
 ___  _  _ _ _    ___  ____ ____
 |__] |  | | |    |  \ |___ |__/
 |__] |__| | |___ |__/ |___ |  \\
+(This mode compiles 64 bits version and 32 bits version, it can take the double of time)
 EOF
 if read -r -s -n 1 -t 5 -p "Press any key within 5 seconds to cancel build" key
 then
@@ -68,23 +69,46 @@ else
     cp "${BASEROM_PATH}" sm64coopdx/baserom.us.z64
     cd sm64coopdx
 fi
-make 2>&1 | tee build.log
+echo 'Compiling 64 bits version...'
+make TARGET_BITS=64
 if ! [ -f build/us_pc/sm64coopdx.apk ]
 then
     cat <<EOF
 ____ ____ _ _    _  _ ____ ____
 |___ |__| | |    |  | |__/ |___
 |    |  | | |___ |__| |  \ |___
+---------------
+Compiling 32 bits version...
 EOF
-    echo $RESTART_INSTRUCTIONS
-    exit 3
-fi
-cp build/us_pc/sm64coopdx.apk /storage/emulated/0
+else
+cp build/us_pc/sm64coopdx.apk /storage/emulated/0/sm64coopdx64.apk
 cat <<EOF
 ___  ____ _  _ ____
 |  \ |  | |\ | |___
 |__/ |__| | \| |___
+Go to Files and touch sm64coopdx64.apk to install!
+---------------
+Compiling 32 bits version...
 EOF
-echo 'Go to Files and touch sm64coopdx.apk to install!'
+fi
+make TARGET_BITS=32
+if ! [ -f build/us_pc/sm64coopdx.apk ]
+then
+    cat <<EOF
+____ ____ _ _    _  _ ____ ____
+|___ |__| | |    |  | |__/ |___
+|    |  | | |___ |__| |  \ |___
+---------------
+EOF
+else
+cp build/us_pc/sm64coopdx.apk /storage/emulated/0/sm64coopdx32.apk
+cat <<EOF
+___  ____ _  _ ____
+|  \ |  | |\ | |___
+|__/ |__| | \| |___
+Go to Files and touch sm64coopdx32.apk to install!
+---------------
+EOF
+fi
 yes | termux-wake-unlock
 echo $RESTART_INSTRUCTIONS
