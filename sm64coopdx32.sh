@@ -68,7 +68,7 @@ else
     cp "${BASEROM_PATH}" sm64coopdx/baserom.us.z64
     cd sm64coopdx
 fi
-make 2>&1 | tee build.log
+make TARGET_BITS=32
 if ! [ -f build/us_pc/sm64coopdx.apk ]
 then
     cat <<EOF
